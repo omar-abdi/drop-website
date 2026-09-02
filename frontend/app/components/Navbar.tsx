@@ -9,6 +9,7 @@ function Navbar() {
             <div className="text-xl font-bold">My App</div>
             <div className="space-x-4">
              <Link href="/">Home</  Link>
+              <Link href="/login">Login</Link>
               <Link href="/signup">Signup</Link>
               <Link href="/contact">Contact</Link>
             </div>

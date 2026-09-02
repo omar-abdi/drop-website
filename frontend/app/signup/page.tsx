@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useUserStore } from "../userStore/user";
+import Link from "next/dist/client/link";
 
 type SignupForm = {
   firstName: string;
@@ -213,6 +214,9 @@ export default function SignupPage() {
             >
               {loading ? "Creating account..." : "Create account"}
             </button>
+            <Link href="/login" className="text-cyan-400 transition hover:text-cyan-300">
+              Already have an account? Login
+            </Link>
           </form>
         </div>
       </div>
