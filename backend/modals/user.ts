@@ -8,8 +8,8 @@ type User = {
     phoneNumber: string;
     gender: string;
     address: string;
-    city: string;
-    country: string;
+   
+  
     isAdmin: boolean;
 }
 
@@ -48,14 +48,8 @@ const userSchema = new mongoose.Schema<User>({
         type: String, 
         required: true 
     },
-    city: { 
-        type: String, 
-        required: true 
-    },
-    country: { 
-        type: String, 
-        required: true 
-    },
-});
+    
+  
+},{timestamps:true});
 
 export default mongoose.model<User>("User", userSchema);    

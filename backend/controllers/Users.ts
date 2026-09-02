@@ -6,11 +6,11 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
 export const createUser = async (req: Request, res: Response) => {
-  const { firstName, lastName, email, password, phoneNumber, gender, address, city, country , isAdmin } = req.body;
+  const { firstName, lastName, email, password, phoneNumber, gender, address , isAdmin } = req.body;
  
 
  try{
-    if (!firstName || !lastName || !email || !password || !phoneNumber || !gender || !address || !city || !country) {
+    if (!firstName || !lastName || !email || !password || !phoneNumber || !gender || !address ) {
       return res.status(400).json({ message: "Please provide all the required fields" });
     }
     if(password.length < 8){
@@ -30,8 +30,7 @@ export const createUser = async (req: Request, res: Response) => {
       phoneNumber,
       gender,
       address,
-      city,
-      country,
+  
       isAdmin
     });
     res.status(201).json(user);
