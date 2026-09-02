@@ -4,7 +4,12 @@ import dbConnect from "./db.ts";
 import userRoute from "./Routes/userRoute.ts";
 import questionRoute from "./Routes/quetionRoute.ts";
 import cookieParser from "cookie-parser";
+
 import cors from "cors";
+import dns from 'dns';
+
+// DNS Fix MongoDB Atlas SRV Error
+dns.setServers(["8.8.8.8", "8.8.4.4"]);
 
 dotenv.config();    
    
