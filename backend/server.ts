@@ -2,11 +2,16 @@ import express from "express";
 import dotenv from "dotenv";
 import dbConnect from "./db.ts";
 import userRoute from "./Routes/userRoute.ts";
+import questionRoute from "./Routes/quetionRoute.ts";
+import cookieParser from "cookie-parser";
 
 dotenv.config();    
+   
 const app = express();
+app.use(cookieParser());
 app.use(express.json());
 app.use("/api/users", userRoute);
+app.use("/api/questions", questionRoute);
 
 const PORT = process.env.PORT || 5000;
 app.listen(3000, () => {

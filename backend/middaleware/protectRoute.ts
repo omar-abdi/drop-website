@@ -29,15 +29,14 @@ export const protectRoute = async (
     }
 
     // Verify token
+const decoded = jwt.verify(
+  token,
+  process.env.JWT_SECRET as string
+) as { id: string };
 
+const user = await User.findById(decoded.id);
     
-    const decoded = jwt.verify(
-      token,
-      process.env.JWT_SECRET_KEY as string
-    ) as { userId: string };
-  
-    // Find user
-    const user = await User.findById(decoded.userId);
+
 
     if (!user) {
       return res.status(401).json({
