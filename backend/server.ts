@@ -4,12 +4,17 @@ import dbConnect from "./db.ts";
 import userRoute from "./Routes/userRoute.ts";
 import questionRoute from "./Routes/quetionRoute.ts";
 import cookieParser from "cookie-parser";
+import cors from "cors";
 
 dotenv.config();    
    
 const app = express();
 app.use(cookieParser());
 app.use(express.json());
+  app.use(cors({
+    origin: "http://localhost:3001",
+    credentials: true,
+  }));
 app.use("/api/users", userRoute);
 app.use("/api/questions", questionRoute);
 
