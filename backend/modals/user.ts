@@ -10,6 +10,7 @@ type User = {
     address: string;
     city: string;
     country: string;
+    isAdmin: boolean;
 }
 
 const userSchema = new mongoose.Schema<User>({
@@ -31,6 +32,10 @@ const userSchema = new mongoose.Schema<User>({
          type: String, 
          required: true 
         },
+        isAdmin: {
+        type: Boolean,
+        default: false
+    },
     phoneNumber: { 
         type: String, 
         required: true 

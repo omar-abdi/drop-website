@@ -5,7 +5,8 @@ import User from "../modals/user.ts";
 import bcrypt from "bcryptjs";
 
 export const createUser = async (req: Request, res: Response) => {
-  const { firstName, lastName, email, password, phoneNumber, gender, address, city, country } = req.body;
+  const { firstName, lastName, email, password, phoneNumber, gender, address, city, country , isAdmin } = req.body;
+ 
 
  try{
     if (!firstName || !lastName || !email || !password || !phoneNumber || !gender || !address || !city || !country) {
@@ -30,6 +31,7 @@ export const createUser = async (req: Request, res: Response) => {
       address,
       city,
       country,
+      isAdmin
     });
     res.status(201).json(user);
   } catch (error) {
