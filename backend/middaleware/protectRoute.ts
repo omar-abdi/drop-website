@@ -6,6 +6,7 @@ import type { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 import User from "../modals/user.ts";
 
+const JWT_SECRET = process.env.JWT_SECRET || "your_jwt_secret_key12cccdjknkldmlncm9wnnnwnwwwiwwiwiwiwiwiii";
 
 
 export const protectRoute = async (
@@ -28,15 +29,8 @@ export const protectRoute = async (
       });
     }
 
-    // Verify token
-const decoded = jwt.verify(
-  token,
-  process.env.JWT_SECRET as string
-) as { id: string };
-
-const user = await User.findById(decoded.id);
-    
-
+    const decoded = jwt.verify(token, JWT_SECRET) as { id: string };
+    const user = await User.findById(decoded.id);
 
     if (!user) {
       return res.status(401).json({
@@ -44,15 +38,19 @@ const user = await User.findById(decoded.id);
       });
     }
 
-    // Save user in request
-  // Save user in request
-(req as any).user = user;
+    (req as any).user = user;
     next();
-  } catch (error : any) {
+  } catch (error: any) {
     console.log("Error in protectRoute:", error);
 
-    res.status(500).json({
-      message: error.message
+    if (error instanceof jwt.JsonWebTokenError) {
+      return res.status(401).json({
+        message: "Invalid or expired token",
+      });
+    }
+
+    return res.status(401).json({
+      message: "Unauthorized",
     });
   }
 };

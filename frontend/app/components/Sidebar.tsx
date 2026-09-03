@@ -11,17 +11,17 @@ function Sidebar() {
 
       <nav className="space-y-2">
         <Link
-          href="/usersDashboard"
+          href="/usersDashbroad"
           className="block rounded-lg px-4 py-3 text-gray-700 hover:bg-gray-100"
         >
           Dashboard
         </Link>
 
         <Link
-          href="/usersDashboard/users"
+          href="/usersDashbroad/users/all"
           className="block rounded-lg bg-gray-100 px-4 py-3 font-medium text-gray-900"
         >
-          Users
+          All-Users
         </Link>
 
         <Link

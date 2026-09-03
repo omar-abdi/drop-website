@@ -1,11 +1,91 @@
-import React from 'react'
+"use client";
 
-function page() {
+import { useEffect, useState } from "react";
+import axios from "axios";
+
+type User = {
+  _id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phoneNumber?: string;
+  gender?: string;
+  address?: string;
+  isAdmin?: boolean;
+};
+
+export default function UsersPage() {
+  const [users, setUsers] = useState<User[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    const getUsers = async () => {
+      try {
+        setLoading(true);
+        setError("");
+
+        const response = await axios.get("http://localhost:3000/api/users/all", {
+          withCredentials: true,
+        });
+
+        setUsers(response.data || []);
+      } catch (err: any) {
+        setError(err?.response?.data?.message || "Failed to load users");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    getUsers();
+  }, []);
+
   return (
-    <div>
-      <h1>All Users</h1>
-    </div>
-  )
-}
+    <div className="min-h-screen bg-slate-950 p-6 text-white">
+      <div className="mx-auto max-w-4xl  rounded-3xl border border-white/10 bg-slate-900/80 p-6 shadow-xl">
+        <h1 className="mb-6 text-3xl font-bold">All Users</h1>
 
-export default page
+        {loading && <p className="text-slate-300">Loading users...</p>}
+
+        {error && (
+          <div className="mb-4 rounded-xl border border-red-500/40 bg-red-500/10 p-3 text-red-200">
+            {error}
+          </div>
+        )}
+
+        {!loading && !error && users.length === 0 && (
+          <p className="text-slate-300">No users found.</p>
+        )}
+
+        {!loading && !error && users.length > 0 && (
+          <div className="overflow-hidden rounded-2xl border border-white/10">
+            <table className="min-w-full text-left text-sm">
+              <thead className="bg-white/5 text-slate-300">
+                <tr>
+                  <th className="px-4 py-3">Name</th>
+                  <th className="px-4 py-3">Email</th>
+                  <th className="px-4 py-3">Phone</th>
+                  <th className="px-4 py-3">Role</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-white/10">
+                {users.map((user) => (
+                  <tr key={user._id} className="hover:bg-white/5">
+                    <td className="px-4 py-3">{user.firstName} {user.lastName}</td>
+                    <td className="px-4 py-3">{user.email}</td>
+                    <td className="px-4 py-3">{user.phoneNumber || "-"}</td>
+                    <td className="px-4 py-3">
+                      <span className="rounded-full bg-cyan-500/10 px-2 py-1 text-xs text-cyan-300">
+                        {user.isAdmin ? "Admin" : "User"}
+                      </span>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}

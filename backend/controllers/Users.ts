@@ -5,6 +5,8 @@ import User from "../modals/user.ts";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
+const JWT_SECRET = process.env.JWT_SECRET || "your_jwt_secret_key12cccdjknkldmlncm9wnnnwnwwwiwwiwiwiwiwiii";
+
 export const createUser = async (req: Request, res: Response) => {
   const { firstName, lastName, email, password, phoneNumber, gender, address , isAdmin } = req.body;
  
@@ -52,7 +54,7 @@ export const LoginUser = async (req: Request, res: Response) => {
     if (!isPasswordCorrect) {
       return res.status(401).json({ message: "invalid credentials" });
     }
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET as string, {
+    const token = jwt.sign({ id: user._id }, JWT_SECRET, {
       expiresIn: "30d",
     });
     //access_token
@@ -109,3 +111,5 @@ export const getAllUsers = async(req :any , res : Response)=>{
     res.status(500).json({ message: "Internal server error" });
   }
 };
+
+
