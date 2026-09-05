@@ -24,7 +24,7 @@ app.use("/api/users", userRoute);
 app.use("/api/questions", questionRoute);
 
 const PORT = process.env.PORT || 5000;
-app.listen(3000, () => {
+app.listen(PORT, () => {
     dbConnect();
   console.log(`Server is running on port ${PORT}`);
 });

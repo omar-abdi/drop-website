@@ -17,6 +17,8 @@ type UserStore = {
   user: User | null;
   registerUser: (user: User) => Promise<void>;
   loginUser: (email: string, password: string) => Promise<void>;
+  deleteUser: (userId: string) => Promise<void>;
+  updateUser: (userId: string, user: Partial<User>) => Promise<User>;
   logout: () => void;
 };
 
@@ -52,6 +54,24 @@ export const useUserStore = create<UserStore>((set) => ({
     set({
       user: response.data.user,
     });
+  },
+
+  deleteUser: async (userId) => {
+    await axios.delete(`http://localhost:3000/api/users/${userId}`, {
+      withCredentials: true,
+    });
+  },
+
+  updateUser: async (userId, user) => {
+    const response = await axios.put(
+      `http://localhost:3000/api/users/${userId}`,
+      user,
+      {
+        withCredentials: true,
+      }
+    );
+
+    return response.data;
   },
 
   logout: () => {
