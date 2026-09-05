@@ -41,6 +41,20 @@ function Sidebar() {
         >
           Profile
         </Link>
+
+        <Link
+          href="/productDashbroad/products/all"
+          className={linkClass("/productDashbroad/products/all")}
+        >
+          All Products
+        </Link>
+
+        <Link
+          href="/productDashbroad/products/addProduct"
+          className={linkClass("/productDashbroad/products/addProduct")}
+        >
+          Add Product
+        </Link>
       </nav>
     </aside>
   );
