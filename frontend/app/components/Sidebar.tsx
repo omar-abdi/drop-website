@@ -1,7 +1,18 @@
-import React from "react";
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 function Sidebar() {
+  const pathname = usePathname();
+
+  const linkClass = (href: string) =>
+    `block rounded-lg px-4 py-3 ${
+      pathname === href
+        ? "bg-gray-100 font-medium text-gray-900"
+        : "text-gray-700 hover:bg-gray-100"
+    }`;
+
   return (
     <aside className="fixed left-0 top-0 h-screen w-64 border-r bg-white p-5">
       <div className="mb-8">
@@ -12,23 +23,23 @@ function Sidebar() {
       <nav className="space-y-2">
         <Link
           href="/usersDashbroad"
-          className="block rounded-lg px-4 py-3 text-gray-700 hover:bg-gray-100"
+          className={linkClass("/usersDashbroad")}
         >
           Dashboard
         </Link>
 
         <Link
           href="/usersDashbroad/users/all"
-          className="block rounded-lg bg-gray-100 px-4 py-3 font-medium text-gray-900"
+          className={linkClass("/usersDashbroad/users/all")}
         >
           All-Users
         </Link>
 
         <Link
-          href="/usersDashboard/settings"
-          className="block rounded-lg px-4 py-3 text-gray-700 hover:bg-gray-100"
+          href="/usersDashbroad/profile"
+          className={linkClass("/usersDashbroad/profile")}
         >
-          Settings
+          Profile
         </Link>
       </nav>
     </aside>

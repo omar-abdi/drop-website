@@ -1,8 +1,8 @@
 import { Router } from "express";
-import { createQuestion } from "../controllers/questions.ts";
+import { createProduct } from "../controllers/products.ts";
 import { protectRoute } from "../middaleware/protectRoute.ts";
 const router = Router();
 
-router.post("/ask",  protectRoute, createQuestion);
+router.post("/add",  protectRoute, createProduct);
 
 export default router;

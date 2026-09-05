@@ -2,7 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import dbConnect from "./db.ts";
 import userRoute from "./Routes/userRoute.ts";
-import questionRoute from "./Routes/quetionRoute.ts";
+import productRoute from "./Routes/products.ts";
 import cookieParser from "cookie-parser";
 
 import cors from "cors";
@@ -21,7 +21,7 @@ app.use(express.json());
     credentials: true,
   }));
 app.use("/api/users", userRoute);
-app.use("/api/questions", questionRoute);
+app.use("/api/products", productRoute);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
