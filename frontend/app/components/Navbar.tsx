@@ -32,7 +32,7 @@ function Navbar() {
             <Link href="/" className="hover:text-indigo-600 transition-colors">
               Home
             </Link>
-            <Link href="/products" className="hover:text-indigo-600 transition-colors">
+            <Link href="/productDashbroad" className="hover:text-indigo-600 transition-colors">
               Products
             </Link>
             <Link href="/categories" className="hover:text-indigo-600 transition-colors">
