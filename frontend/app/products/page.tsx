@@ -13,7 +13,7 @@ export default function ProductsPage() {
     const clearError = useProductStore((state) => state.clearError);
     const [search, setSearch] = useState("");
     const [pageError, setPageError] = useState("");
-    const [deletingId, setDeletingId] = useState("");
+
 
     useEffect(() => {
         getAllProducts().catch(() => undefined);
@@ -35,13 +35,13 @@ export default function ProductsPage() {
         if (!window.confirm(`Delete ${product.title}?`)) return;
 
         try {
-            setDeletingId(product._id);
+            // setDeletingId(product._id);
             setPageError("");
             await deleteProduct(product._id);
         } catch (error: any) {
             setPageError(error?.response?.data?.message || "Failed to delete product");
         } finally {
-            setDeletingId("");
+            // setDeletingId("");
         }
     };
 
@@ -56,12 +56,7 @@ export default function ProductsPage() {
                         <h1 className="text-3xl font-bold tracking-tight text-slate-900">All Products</h1>
                         <p className="mt-1 text-sm text-slate-500">Manage your store products</p>
                     </div>
-                    <Link
-                        href="/productDashbroad/products/addProduct"
-                        className="inline-flex items-center justify-center rounded-lg bg-black px-5 py-3 text-sm font-medium text-white transition hover:bg-slate-800"
-                    >
-                        + Add product
-                    </Link>
+                  
                 </header>
 
                 {/* Search Bar */}
