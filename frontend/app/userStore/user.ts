@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { persist } from "zustand/middleware";
 import axios from "axios";
 
 type User = {
@@ -15,15 +16,23 @@ type User = {
 
 type UserStore = {
   user: User | null;
+  authChecked: boolean;
   registerUser: (user: User) => Promise<void>;
   loginUser: (email: string, password: string) => Promise<void>;
+  checkAuth: () => Promise<User | null>;
   deleteUser: (userId: string) => Promise<void>;
   updateUser: (userId: string, user: Partial<User>) => Promise<User>;
   logout: () => void;
 };
 
-export const useUserStore = create<UserStore>((set) => ({
+const withoutSensitiveData = (user: User): User => {
+  const { password: _password, ...safeUser } = user;
+  return safeUser;
+};
+
+export const useUserStore = create<UserStore>()(persist((set) => ({
   user: null,
+  authChecked: false,
 
   registerUser: async (user) => {
     const response = await axios.post(
@@ -35,7 +44,7 @@ export const useUserStore = create<UserStore>((set) => ({
     );
 
     set({
-      user: response.data.user,
+      user: withoutSensitiveData(response.data.user || response.data),
     });
   },
 
@@ -52,8 +61,22 @@ export const useUserStore = create<UserStore>((set) => ({
     );
 
     set({
-      user: response.data.user,
+      user: withoutSensitiveData(response.data.user),
     });
+  },
+
+  checkAuth: async () => {
+    try {
+      const response = await axios.get<{ user: User }>("http://localhost:3000/api/users/me", {
+        withCredentials: true,
+      });
+      const safeUser = withoutSensitiveData(response.data.user);
+      set({ user: safeUser, authChecked: true });
+      return safeUser;
+    } catch {
+      set({ user: null, authChecked: true });
+      return null;
+    }
   },
 
   deleteUser: async (userId) => {
@@ -77,6 +100,10 @@ export const useUserStore = create<UserStore>((set) => ({
   logout: () => {
     set({
       user: null,
+      authChecked: true,
     });
   },
+}), {
+  name: "storex-current-user",
+  partialize: (state) => ({ user: state.user }),
 }));

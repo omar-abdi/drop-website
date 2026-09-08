@@ -51,7 +51,7 @@ export const useKindStore = create<KindStore>((set) => ({
 	},
 
 	getSingleKind: async (kindId) => {
-		const response = await axios.get<Kind>(`${API_URL}/${kindId}`);
+		const response = await axios.get<Kind>(`${API_URL}/${kindId}`,);
 		return response.data;
 	},
 

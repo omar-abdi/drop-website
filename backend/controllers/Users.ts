@@ -71,6 +71,10 @@ export const LoginUser = async (req: Request, res: Response) => {
   }
 };  
 
+export const getCurrentUser = async (req: any, res: Response) => {
+  return res.status(200).json({ user: req.user });
+};
+
 
 
 
