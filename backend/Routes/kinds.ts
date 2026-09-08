@@ -3,14 +3,15 @@
 import { Router } from "express";
 import { createProductKinds, getAllKinds, getSingleKinds, updateProductKinds, deleteProductKinds } from "../controllers/kinds.ts";
 //soo import gary 2daba protect iyo only admin ku xir delete update post 
+import {adminRoute} from "../utillas/adminRoute.ts" 
+import { protectRoute } from "../middaleware/protectRoute.ts";
 
-import { protect, onlyAdmin } from "../middleware/auth.ts";
 const router = Router();
 
 router.get("/", getAllKinds);
 router.get("/:id", getSingleKinds);
-router.post("/",  protect, onlyAdmin, createProductKinds);
-router.put("/:id", protect, onlyAdmin, updateProductKinds);
-router.delete("/:id", protect, onlyAdmin, deleteProductKinds);
+router.post("/",   protectRoute, adminRoute, createProductKinds);
+router.put("/:id", protectRoute, adminRoute, updateProductKinds);
+router.delete("/:id", protectRoute, adminRoute, deleteProductKinds);
 
 export default router;

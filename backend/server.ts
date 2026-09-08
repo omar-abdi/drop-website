@@ -4,7 +4,8 @@ import dbConnect from "./db.ts";
 import userRoute from "./Routes/userRoute.ts";
 import productRoute from "./Routes/products.ts";
 import cookieParser from "cookie-parser";
-
+// kinds router
+import kindsRouter from "./Routes/kinds.ts"
 import cors from "cors";
 import dns from 'dns';
 
@@ -22,6 +23,7 @@ app.use(express.json());
   }));
 app.use("/api/users", userRoute);
 app.use("/api/products", productRoute);
+app.use("api/kinds" , kindsRouter)
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
