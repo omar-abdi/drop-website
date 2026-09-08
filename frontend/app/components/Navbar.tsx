@@ -35,8 +35,8 @@ function Navbar() {
             <Link href="/products" className="hover:text-indigo-600 transition-colors">
               Products
             </Link>
-            <Link href="/categories" className="hover:text-indigo-600 transition-colors">
-              Categories
+            <Link href="/kinds" className="hover:text-indigo-600 transition-colors">
+            kinds
             </Link>
             <Link href="/contact" className="hover:text-indigo-600 transition-colors">
               Contact

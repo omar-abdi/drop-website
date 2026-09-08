@@ -10,7 +10,7 @@ const router = Router();
 
 router.get("/", getAllKinds);
 router.get("/:id", getSingleKinds);
-router.post("/",   protectRoute, adminRoute, createProductKinds);
+router.post("/add",   protectRoute, adminRoute, createProductKinds);
 router.put("/:id", protectRoute, adminRoute, updateProductKinds);
 router.delete("/:id", protectRoute, adminRoute, deleteProductKinds);
 
