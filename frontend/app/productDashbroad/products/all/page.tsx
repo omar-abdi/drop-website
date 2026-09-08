@@ -147,12 +147,7 @@ export default function ProductsPage() {
 										{product.stock > 0 ? `${product.stock} in stock` : "Out of stock"}
 									</span>
 									<div className="flex gap-2">
-										<Link
-											href={`/productDashbroad/products/${product._id}`}
-											className="rounded-lg border border-white/10 px-3 py-2 text-xs font-semibold hover:bg-white/10"
-										>
-											View
-										</Link>
+										
 										<button
 											type="button"
 											onClick={() => handleDelete(product)}

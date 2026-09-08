@@ -36,10 +36,10 @@ function Leftiside() {
         </Link>
 
         <Link
-          href="/productDashbroad/profile"
+          href="/productDashbroad/products/kinds"
           className={linkClass("/usersDashbroad/profile")}
         >
-          Profile
+          All kinds
         </Link>
 
        
