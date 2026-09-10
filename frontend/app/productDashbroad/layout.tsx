@@ -6,5 +6,6 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
   return <Protectroute>
     <Leftiside />
     {children}
+    
   </Protectroute>;
 }
